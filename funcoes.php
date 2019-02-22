@@ -1,10 +1,12 @@
 <?php
     require('./conexao.php');
 
-    function setAluno($nome, $email, $notaDeAvaliacao){
+    function setAluno($matricula, $nome, $notaDeAvaliacao){
         $link = getConnection();
-
-        $query = "insert into tb_alunos values(null, '{$nome}', '{$email}', {$notaDeAvaliacao})";
+   
+        $query = "insert into tb_alunos values({$matricula}, '{$nome}', {$notaDeAvaliacao}) on duplicate key update nome = '{$nome}', notaDeAvaliacao = {$notaDeAvaliacao};";
+        echo $query;
+        exit;
         try {
             mysqli_query($link, $query);
             return true;
@@ -20,26 +22,27 @@
         $query = "select * from tb_alunos";
         try {
             $rs = mysqli_query($link, $query);
-            $listaAlunos = new Array();
-            while ($row = mysqli_fetch_row($rs)) {
+            $listaAlunos = Array();
+            while ($row = mysqli_fetch_assoc($rs)) {
                 array_push($listaAlunos, $row);
             }
             return $listaAlunos;
         } catch (\Throwable $th) {
             throw new \Exception("Error ao listar", 1);
-            return new Array();
+            return Array();
         }
     }
     function getAlunoById($id){
         $link = getConnection();
 
-        $query = "select * from tb_alunos where id = {$id}";
+        $query = "select * from tb_alunos where matricula = {$id}";
+
         try {
             $rs = mysqli_query($link, $query);
-            return mysqli_fetch_row($rs);
+            return mysqli_fetch_assoc($rs);
         } catch (\Throwable $th) {
             throw new \Exception("Error ao localizar o aluno", 1);
-            return new Array();
+            return Array();
         }
     }
     function updateAluno($id, $nome, $email, $notaDeAvaliacao){

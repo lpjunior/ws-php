@@ -61,6 +61,10 @@
                                 <label for="_nota">Nota de Avaliação</label>
                                 <input type="number" step="any" id="notaDeAvaliacao" name="nota" class="form-control" value="">
                             </div>
+                            
+                            <div class="form-group">
+                                <button type="button" id="btn_registrar" class="btn btn-warning">Registrar</button>
+                            </div>
                         </form>
                     </fieldset>
                 </div>

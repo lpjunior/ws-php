@@ -2,7 +2,7 @@ $(function () {
 
     $(document).ready(function () {
 
-        var url = 'http://localhost/ws/consultas.php?alunos';
+        var url = 'http://localhost/ws-php/consultas.php?aluno';
 
         $.getJSON(url, function (json) {
 
@@ -30,8 +30,7 @@ $(function () {
         matricula = matricula.replace('-', '');
 
         if (matricula !== "") {
-
-            var url = 'http://localhost/ws/consultas.php?alunos=' + matricula;
+            var url = 'http://localhost/ws-php/consultas.php?aluno=' + matricula;
 
             $.getJSON(url, function (json) {
 
@@ -46,6 +45,38 @@ $(function () {
                 $("#notaDeAvaliacao").val("");
                 toastr.error("Matricula incorreta ou inexistente!");
             });
+        }
+    });
+    
+    $("#btn_registrar").click(function () {
+
+        var dados = {
+            matricula: '',
+            nome: '',
+            notaDeAvaliacao: ''
+        };
+
+        dados.matricula = $("#matricula").val();
+        dados.nome = $("#nome").val();
+        dados.notaDeAvaliacao = $("#notaDeAvaliacao").val();
+
+        if (dados !== "") {
+            console.log(JSON.stringify(dados));
+            $.ajax({
+                url: "http://localhost/ws-php/consultas.php",
+                type : 'post',
+                data: JSON.stringify(dados),
+                beforeSend : function () {
+                    toastr.info("Enviando...");
+                }
+            })
+            .done(function (msg) {
+                console.log(msg);
+                toastr.success(msg);
+            })
+            .fail(function (jqXHR, textStatus, msg) {
+                toastr.error(msg);
+            }); 
         }
     });
 });

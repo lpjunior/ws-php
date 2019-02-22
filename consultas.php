@@ -4,15 +4,15 @@
   if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $aluno = json_decode(file_get_contents('php://input'), true);
 
-    if(setAluno($aluno['nome'], $aluno['email'], $aluno['notaDeAvaliacao'])) {
+    if(setAluno($aluno['matricula'], $aluno['nome'], $aluno['notaDeAvaliacao'])) {
       echo json_encode(Array("status" => "200"));
     } else {
         echo json_encode(Array("status" => "500"));
     }
 
   } else if($_SERVER['REQUEST_METHOD'] === 'GET') {
-    if(isset($_GET['id'])) {
-      echo json_encode(getAlunoById($_GET['id']));
+    if($_GET['aluno'] !== '') {
+      echo json_encode(getAlunoById($_GET['aluno']));
     } else {
       echo json_encode(getAlunos());
     }
@@ -20,7 +20,7 @@
   } else if($_SERVER['REQUEST_METHOD'] === 'PUT') {
     $aluno = json_decode(file_get_contents('php://input'), true);
 
-    if(updateAluno($aluno['id'], $aluno['nome'], $aluno['email'], $aluno['notaDeAvaliacao'])) {
+    if(updateAluno($aluno['id'], $aluno['nome'], $aluno['matricula'], $aluno['notaDeAvaliacao'])) {
         echo json_encode(Array("status" => "200"));
     } else {
         echo json_encode(Array("status" => "500"));
