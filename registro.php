@@ -9,14 +9,22 @@
     $estado = $_POST['txtestado'];
     $complemento = $_POST['txtcomplemento'];
 
+    $msg = '';
+    
     $link = getConnection();
-   
+    
     $query = "insert into tb_enderecos values(null, '{$cep}', '{$logradouro}', '{$bairro}', '{$cidade}', '{$estado}', '{$complemento}')";
     try {
         mysqli_query($link, $query);
-        return true;
+        $msg = ["success", "Registrado com sucesso"];
     } catch (\Throwable $th) {
         throw new \Exception("Error ao gravar", 1);
-        return false;
+        $msg = ["danger", "Falha ao registrar"];
     }
+    
+    session_start();
+    $_SESSION['msg'] = $msg;
+
+    header("Location:formulario.php");
+    exit;
   }

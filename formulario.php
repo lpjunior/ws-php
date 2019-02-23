@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!doctype html>
 <html lang="pt-br">
   <head>
@@ -41,13 +44,17 @@
                         <input type="text" class="form-control" id="icomplemento" name="txtcomplemento" placeholder="Informe Complemento" required>
                     </div>
                     <div class="form-group">
-                        <button type="button" class="btn btn-success" id="btn_cadastrar">Cadastrar</button>
+                        <p><small id="status" class="text-<?= $_SESSION['msg'][0] ?>"><?= isset($_SESSION['msg'][1]) ? $_SESSION['msg'][1] : '' ?></small></p>
+                        <button type="submit" class="btn btn-success" id="btn_cadastrar">Cadastrar</button>
                     </div>
                 </form>
             </fieldset>
         </div>
     </div>
+<?php
+    unset($_SESSION['msg']);
 
+?>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
