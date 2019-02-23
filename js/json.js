@@ -1,8 +1,8 @@
-$(function () {
+$(function() {
 
     $(document).ready(function () {
 
-        var url = 'http://localhost/ws-php/consultas.php?aluno';
+        var url = 'http://localhost:8080/ws-php/consultas.php?aluno';
 
         $.getJSON(url, function (json) {
 
@@ -30,7 +30,7 @@ $(function () {
         matricula = matricula.replace('-', '');
 
         if (matricula !== "") {
-            var url = 'http://localhost/ws-php/consultas.php?aluno=' + matricula;
+            var url = 'http://localhost:8080/ws-php/consultas.php?aluno=' + matricula;
 
             $.getJSON(url, function (json) {
 
@@ -63,7 +63,7 @@ $(function () {
         if (dados !== "") {
             console.log(JSON.stringify(dados));
             $.ajax({
-                url: "http://localhost/ws-php/consultas.php",
+                url: "http://localhost:8080/ws-php/consultas.php",
                 type : 'post',
                 data: JSON.stringify(dados),
                 beforeSend : function () {

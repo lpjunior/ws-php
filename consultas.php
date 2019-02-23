@@ -5,7 +5,7 @@
     $aluno = json_decode(file_get_contents('php://input'), true);
 
     if(setAluno($aluno['matricula'], $aluno['nome'], $aluno['notaDeAvaliacao'])) {
-      echo json_encode(Array("status" => "200"));
+      echo "Dados gravados com sucesso";
     } else {
         echo json_encode(Array("status" => "500"));
     }

@@ -5,8 +5,6 @@
         $link = getConnection();
    
         $query = "insert into tb_alunos values({$matricula}, '{$nome}', {$notaDeAvaliacao}) on duplicate key update nome = '{$nome}', notaDeAvaliacao = {$notaDeAvaliacao};";
-        echo $query;
-        exit;
         try {
             mysqli_query($link, $query);
             return true;
